@@ -45,7 +45,6 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
         adapter = new ArrayAdapter<Pokemon>(
                 getContext(),
                 R.layout.lv_pokemon_row,
