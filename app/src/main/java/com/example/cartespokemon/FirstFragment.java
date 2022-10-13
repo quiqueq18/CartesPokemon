@@ -1,8 +1,11 @@
 package com.example.cartespokemon;
 
+import android.content.SharedPreferences;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -44,6 +48,9 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        items=new ArrayList<Pokemon>();
+
+        PokeApi api=new PokeApi();
         adapter = new ArrayAdapter<Pokemon>(
                 getContext(),
                 R.layout.lv_pokemon_row,
@@ -51,9 +58,11 @@ public class FirstFragment extends Fragment {
                 items
         );
         binding.lvPokemon.setAdapter(adapter);
-        PokeApi api=new PokeApi();
         refresh();
-        api.getPokemon();
+
+
+
+        //api.getPokemon();
         super.onViewCreated(view,savedInstanceState);
     }
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -61,19 +70,11 @@ public class FirstFragment extends Fragment {
         inflater.inflate(R.menu.menu_main, menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_refresh) {
-            refresh();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
     public void refresh(){
+        Toast.makeText(getContext(),"Refrescando...",Toast.LENGTH_LONG).show();
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 

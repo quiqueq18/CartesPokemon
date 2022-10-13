@@ -1,11 +1,13 @@
 package com.example.cartespokemon;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.Settings;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+
     }
 
     @Override
@@ -54,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i= new Intent(this, SettingsActivity.class);
+            startActivity(i);
             return true;
         }
 
